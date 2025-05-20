@@ -2,14 +2,14 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3030;
+const PORT = 8080;
 
 // Permitir CORS
 app.use(cors());
 
 // Endpoint ping
 app.get('/ping', (req, res) => {
-  res.json({ message: 'pong-Simbaña' });
+  res.json({ message: 'Hola mundo' });
 });
 
 app.listen(PORT, () => {

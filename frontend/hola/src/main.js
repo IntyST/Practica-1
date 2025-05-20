@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btn.addEventListener("click", async () => {
     try {
-      const response = await fetch("http://localhost:3030/ping");
+      const response = await fetch("http://localhost:8080/ping");
       const data = await response.json();
       msg.innerHTML = data.message;
     } catch (error) {
