@@ -183,7 +183,7 @@ Con el contenedor corriendo, se accede a:
 http://35.173.134.161:8080/ping
 ```
 
-Incluso si cierras la terminal, el servidor sigue funcionando.
+Incluso si se cierra la terminal, el servidor sigue funcionando.
 
 Ahora ya no es necesario ejecutar `node index.js` manualmente, Docker se encarga de ello.
 
