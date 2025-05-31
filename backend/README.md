@@ -163,7 +163,7 @@ sudo docker build -t node-hello .
 ### 9. Ejecutar contenedor Docker
 
 ```bash
-sudo docker run -d -p 3000:3000 --name hello --restart on-failure node-hello:latest
+sudo docker run -d -p 8080:8080 --name hello --restart on-failure node-hello:latest
 ```
 
 Explicación:
