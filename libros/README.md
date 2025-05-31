@@ -154,7 +154,7 @@ No se requirió volver a instalar Docker porque ya estaba configurado desde la p
 ### Pasos para el despliegue:
 
 1. **Subir cambios al repositorio GitHub**  
-   Desde el directorio local del proyecto, ejecutar:
+   Desde el directorio local del proyecto, ejecutar los siguientes comandos uno por uno:
 
    ```bash
    git status
@@ -192,12 +192,12 @@ No se requirió volver a instalar Docker porque ya estaba configurado desde la p
    Ejecutar:
 
    ```bash
-   sudo docker run -d -p 8080:8080 --name libros-api --restart on-failure libros-service
+   sudo docker run -d -p 8081:8080 --name libros-api --restart on-failure libros-service
    ```
 
    **Explicación:**
    - `-d`: Ejecuta el contenedor en segundo plano.
-   - `-p 8080:8080`: Mapea el puerto 8080 del host al puerto 8080 del contenedor.
+   - `-p 8081:8080`: Mapea el puerto 8081 del host al puerto 8080 del contenedor.No uso en la primera el puerto 8080 por que ya esta usada por la practica anterior.
    - `--name libros-api`: Asigna el nombre `libros-api` al contenedor.
    - `--restart on-failure`: Reinicia el contenedor automáticamente si falla.
    - `libros-service`: Nombre de la imagen a utilizar.
