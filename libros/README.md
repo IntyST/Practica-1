@@ -1,10 +1,33 @@
-# Web Service de Gestión de Libros 📚
+```markdown
+# Web Service de Gestión de Libros
 
-Este proyecto implementa un Web Service RESTful usando **Node.js** y **Express**, que permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre una colección de libros. El servicio fue desplegado en un contenedor Docker y está preparado para ejecutarse fácilmente en una instancia Ubuntu en AWS.
+En esta práctica se implementa un **Web Service RESTful** usando **Node.js** y **Express**, que permite realizar operaciones **CRUD** (Crear, Leer, Actualizar, Eliminar) sobre libros. El servicio fue desplegado en un contenedor **Docker** y está preparado para ejecutarse fácilmente en una instancia **Ubuntu** en **AWS**.
 
 ---
 
-## 🚀 Endpoints disponibles
+## Dockerfile utilizado
+
+Es el mismo de la práctica anterior:
+
+```dockerfile
+FROM node:20.10.0-alpine3.18
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm i
+
+COPY index.js .
+
+EXPOSE 8080
+
+CMD [ "node", "index.js" ]
+```
+
+---
+
+## Endpoints disponibles
 
 ### 🔹 `GET /libros`
 Devuelve todos los libros en formato JSON.  
@@ -28,7 +51,7 @@ Devuelve un libro específico por su ID.
 { "id": 2, "titulo": "Clean Code", "autor": "Robert C. Martin" }
 ```
 
-Si no se encuentra el libro:
+Si no se encuentra el libro, devuelve código **404**:
 
 ```json
 { "mensaje": "Libro no encontrado" }
@@ -55,8 +78,8 @@ Crea un nuevo libro.
 
 ```json
 {
-  "titulo": "Nuevo Libro",
-  "autor": "Inty ST"
+  "titulo": "Html 5",
+  "autor": "Robert C. Martin"
 }
 ```
 
@@ -65,12 +88,12 @@ Crea un nuevo libro.
 ```json
 {
   "id": 4,
-  "titulo": "Nuevo Libro",
-  "autor": "Inty ST"
+  "titulo": "HTML 5",
+  "autor": "Robert C. Martin"
 }
 ```
 
-Si falta algún campo:
+Si falta algún campo, devuelve **404** con este mensaje:
 
 ```json
 { "mensaje": "Se requiere título y autor" }
@@ -85,7 +108,7 @@ Actualiza un libro por su ID.
 
 ```json
 {
-  "titulo": "Clean Code Reeditado"
+  "titulo": "Nuevo título"
 }
 ```
 
@@ -94,12 +117,12 @@ Actualiza un libro por su ID.
 ```json
 {
   "id": 2,
-  "titulo": "Clean Code Reeditado",
+  "titulo": "Nuevo título",
   "autor": "Robert C. Martin"
 }
 ```
 
-Si el ID no existe:
+Si el **ID no existe**:
 
 ```json
 { "mensaje": "Libro no encontrado" }
@@ -116,7 +139,7 @@ Elimina un libro por ID.
 { "mensaje": "Libro eliminado correctamente" }
 ```
 
-Si el ID no existe:
+Si el **ID no existe**:
 
 ```json
 { "mensaje": "Libro no encontrado" }
@@ -124,50 +147,72 @@ Si el ID no existe:
 
 ---
 
-## 🐳 Despliegue con Docker
+## Despliegue con Docker
 
-Este Web Service fue desplegado en un contenedor Docker.  
-No se requirió volver a instalar Docker porque ya estaba configurado desde la práctica anterior.
+Este **Web Service** fue desplegado en un contenedor **Docker**.  
+No se requirió volver a instalar Docker porque ya estaba configurado desde la práctica anterior. Para más información sobre la instalación de Docker, los pasos están en el **README** del directorio de backend.
 
-### Dockerfile utilizado:
+### Pasos para el despliegue:
 
-```Dockerfile
-FROM node:20.10.0-alpine3.18
+1. **Subir cambios al repositorio GitHub**  
+   Desde el directorio local del proyecto, ejecutar:
 
-WORKDIR /app
+   ```bash
+   git status
+   git add .
+   git commit -m "Descripción"
+   git push
+   ```
 
-COPY package.json .
+2. **Actualizar cambios en la instancia Ubuntu**  
+   Desde la consola conectada a la instancia de AWS, ejecutar:
 
-RUN npm i
+   ```bash
+   git pull
+   ```
 
-COPY index.js .
+3. **Ingresar al directorio del proyecto**  
+   Ejemplo:
 
-EXPOSE 8080
+   ```bash
+   cd libros
+   ```
 
-CMD [ "node", "index.js" ]
-```
+4. **Construir la imagen Docker**  
+   Ejecutar:
 
-### Comandos Docker usados:
+   ```bash
+   sudo docker build -t libros-service .
+   ```
 
-```bash
-# Construir la imagen
-docker build -t libros-service .
+   **Explicación:**
+   - `docker build`: Crea una imagen Docker a partir del archivo `Dockerfile`.
+   - `-t libros-service`: Asigna el nombre `libros-service` a la imagen.
 
-# Ejecutar el contenedor
-docker run -p 8080:8080 libros-service
-```
+5. **Ejecutar el contenedor Docker**  
+   Ejecutar:
+
+   ```bash
+   sudo docker run -d -p 8080:8080 --name libros-api --restart on-failure libros-service
+   ```
+
+   **Explicación:**
+   - `-d`: Ejecuta el contenedor en segundo plano.
+   - `-p 8080:8080`: Mapea el puerto 8080 del host al puerto 8080 del contenedor.
+   - `--name libros-api`: Asigna el nombre `libros-api` al contenedor.
+   - `--restart on-failure`: Reinicia el contenedor automáticamente si falla.
+   - `libros-service`: Nombre de la imagen a utilizar.
 
 ---
 
-## 📦 Dependencias
+## Dependencias
 
 - **Node.js**
 - **Express**
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
-**Inty Bryan Simbaña Tuquerres**  
-_Primer periodo académico 2025_  
-_Docente: Ing. Ana Montenegro_
+**Inty Bryan Simbaña Tuquerres**
+```
