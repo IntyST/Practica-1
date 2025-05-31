@@ -1,4 +1,3 @@
-```markdown
 # Web Service de Gestión de Libros
 
 En esta práctica se implementa un **Web Service RESTful** usando **Node.js** y **Express**, que permite realizar operaciones **CRUD** (Crear, Leer, Actualizar, Eliminar) sobre libros. El servicio fue desplegado en un contenedor **Docker** y está preparado para ejecutarse fácilmente en una instancia **Ubuntu** en **AWS**.
@@ -215,4 +214,3 @@ No se requirió volver a instalar Docker porque ya estaba configurado desde la p
 ## Autor
 
 **Inty Bryan Simbaña Tuquerres**
-```
